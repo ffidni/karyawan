@@ -22,16 +22,16 @@ class AbsensiService
 
         $date = $date ? Carbon::parse($date)->toDateString() : Carbon::today()->toDateString();
         if ($user_id) {
-            $absensiRecords = Absensi::where("user_id", $user_id)->whereDate('tanggal', $date)->get();
+            $absensiRecords = Absensi::with("user")->where("user_id", $user_id)->whereDate('tanggal', $date)->get();
             return $absensiRecords;
         }
-        $absensiRecords = Absensi::whereDate('tanggal', $date)->get();
+        $absensiRecords = Absensi::with("user")->whereDate('tanggal', $date)->get();
         return $absensiRecords;
     }
 
     public function getAbsensiById(string $id)
     {
-        $absensi = Absensi::find($id);
+        $absensi = Absensi::with("user")->find($id);
         if (!$absensi) {
             throw new ApiException(HttpResponse::HTTP_NOT_FOUND, "Tidak ada data tugas dengan id: $id");
         }

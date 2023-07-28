@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('absensi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained("users");
+            $table->integer("user_id");
             $table->timestamp("tanggal");
             $table->integer("telat_waktu")->nullable();
             $table->enum("status", ["Hadir", "Izin"])->default("hadir");

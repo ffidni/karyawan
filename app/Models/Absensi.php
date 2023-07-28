@@ -17,4 +17,14 @@ class Absensi extends Model
         "status",
         "tipe",
     ];
+
+    /**
+     * Define a one-to-one relationship with the User model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AbsensiController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\api\KaryawanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(["middleware" => "jwt.verify"], function ($api) {
     Route::resource("absensi", AbsensiController::class);
+    Route::resource("karyawan", KaryawanController::class);
     Route::post("/logout", [AuthController::class, "logout"]);
     Route::get("/get-user-by-token", [AuthController::class, "me"]);
     Route::get("/refresh-token", [AuthController::class, "refreshToken"]);

@@ -21,7 +21,7 @@ class AuthService
         return $userResponse;
     }
 
-    public function register(array $data)
+    public function register(array $data, $login = true)
     {
         $user = User::where("email", $data['email'])->exists();
         if ($user) {
@@ -31,8 +31,11 @@ class AuthService
         $defaultPass = $data['password'];
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
-        $userResponse = $this->login(["email" => $data['email'], "password" => $defaultPass]);
-        return $userResponse;
+        if ($login) {
+            $userResponse = $this->login(["email" => $data['email'], "password" => $defaultPass]);
+            return $userResponse;
+        }
+        return $user;
     }
 
     public function updateUser($id, array $data)

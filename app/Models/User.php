@@ -23,6 +23,12 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class, 'user_id');
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *

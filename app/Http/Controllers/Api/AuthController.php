@@ -38,6 +38,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $data = $request->all();
+        $login = $request->query("login");
         $validator = Validator::make($data, [
             "nama" => "required|string|min:2|max:50",
             "email" => "required|email",
@@ -48,7 +49,7 @@ class AuthController extends Controller
             $validatorData = validatorErrorHandler($validator);
             throw new ApiException(HttpResponse::HTTP_BAD_REQUEST, $validatorData['messages']);
         }
-        $user = $this->authService->register($data);
+        $user = $this->authService->register($data, $login);
         return new Response(HttpResponse::HTTP_OK, "Berhasil register", $user);
 
     }
@@ -74,7 +75,7 @@ class AuthController extends Controller
     public function deleteUser(string $id)
     {
         $validator = Validator::make(['id' => $id], [
-            'id' => 'required|numeric|exists:absensi,id',
+            'id' => 'required|numeric|exists:users,id',
         ]);
 
         if ($validator->fails()) {
