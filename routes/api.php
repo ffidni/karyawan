@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\AbsensiController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\api\KaryawanController;
+use App\Http\Controllers\Api\KaryawanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,13 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(["middleware" => "jwt.verify"], function ($api) {
-    Route::resource("absensi", AbsensiController::class);
-    Route::resource("karyawan", KaryawanController::class);
+    Route::get("/karyawan", [KaryawanController::class, "index"]);
+    Route::get("/karyawan/{id}", [KaryawanController::class, "show"]);
     Route::post("/logout", [AuthController::class, "logout"]);
     Route::get("/get-user-by-token", [AuthController::class, "me"]);
     Route::get("/refresh-token", [AuthController::class, "refreshToken"]);
     Route::put("/update-user/{id}", [AuthController::class, "updateUser"]);
     Route::delete("/delete-user/{id}", [AuthController::class, "deleteUser"]);
+    Route::resource("absensi", AbsensiController::class);
 });
 
 Route::post("/register", [AuthController::class, "register"]);

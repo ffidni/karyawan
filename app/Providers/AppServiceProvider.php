@@ -3,7 +3,6 @@
 
 namespace App\Providers;
 
-use App\Http\Controllers\api\KaryawanController;
 use App\Services\AbsensiService;
 use App\Services\KaryawanService;
 use Illuminate\Support\ServiceProvider;

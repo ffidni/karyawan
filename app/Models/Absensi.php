@@ -27,4 +27,8 @@ class Absensi extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    protected $casts = [
+        'user_id' => 'integer',
+    ];
 }
