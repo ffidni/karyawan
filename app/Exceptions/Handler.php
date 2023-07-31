@@ -31,9 +31,9 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ApiException) {
             return new Response($exception->getStatusCode(), $exception->getMessage(), $exception->getData());
         }
-        if (config('app.debug')) {
-            return parent::render($request, $exception);
-        }
+        // if (config('app.debug')) {
+        //     return parent::render($request, $exception);
+        // }
         return new Response(500, $exception->getMessage(), null);
     }
 

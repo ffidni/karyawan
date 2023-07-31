@@ -21,6 +21,10 @@ class JwtMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+
+        if ($request->is('api/refresh-token')) {
+            return $next($request);
+        }
         try {
             $token = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {

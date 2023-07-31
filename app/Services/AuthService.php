@@ -75,7 +75,7 @@ class AuthService
     public function refresh()
     {
         // auth()->invalidate();
-        $refreshedToken = auth()->fromUser(auth()->user());
-        return $refreshedToken;
+        $refreshedToken = JWTAuth::refresh(JWTAuth::getToken());
+        return array("token" => $refreshedToken, "token_expires_in" => auth()->factory()->getTTL() * 60 + time());
     }
 }
